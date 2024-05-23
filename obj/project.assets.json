@@ -460,19 +460,19 @@
     ]
   },
   "packageFolders": {
-    "/home/guilherme/.nuget/packages/": {}
+    "/Users/ligiahirata/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/guilherme/projetos/TaylorsVersionApi/TaylorsVersionApi.csproj",
+      "projectUniqueName": "/Users/ligiahirata/Projects/TaylorsVersionApi/TaylorsVersionApi.csproj",
       "projectName": "TaylorsVersionApi",
-      "projectPath": "/home/guilherme/projetos/TaylorsVersionApi/TaylorsVersionApi.csproj",
-      "packagesPath": "/home/guilherme/.nuget/packages/",
-      "outputPath": "/home/guilherme/projetos/TaylorsVersionApi/obj/",
+      "projectPath": "/Users/ligiahirata/Projects/TaylorsVersionApi/TaylorsVersionApi.csproj",
+      "packagesPath": "/Users/ligiahirata/.nuget/packages/",
+      "outputPath": "/Users/ligiahirata/Projects/TaylorsVersionApi/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/guilherme/.nuget/NuGet/NuGet.Config"
+        "/Users/ligiahirata/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -529,7 +529,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
