@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace TaylorsVersionApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class ApiController : ControllerBase
     {
         private readonly TaylorapiContext _context;
@@ -23,29 +23,32 @@ namespace TaylorsVersionApi.Controllers
 
 
         [NonAction]
-        public async Task<IActionResult> PopulateDB(){
-            
+        public async Task<IActionResult> PopulateDB()
+        {
+
             var file = string.Join('\n', (await System.IO.File.ReadAllLinesAsync("./data/every_song.json")));
 
             var data = JsonSerializer.Deserialize<AlbumData[]>(file);
 
             foreach (var album in data!)
             {
-                var newAlbum = new Album{
+                var newAlbum = new Album
+                {
                     Name = album.Title,
                     IsTv = album.Title.Contains("Version", StringComparison.InvariantCultureIgnoreCase),
                     Releaseyear = album.Year,
                 };
                 _context.Albums.Add(newAlbum);
                 _context.SaveChanges();
-                
+
                 foreach (var song in album.Songs)
                 {
-                    var newSong = new Data.Entities.Song{
+                    var newSong = new Data.Entities.Song
+                    {
                         Albumid = newAlbum.Id,
                         Featuredartists = string.Join(", ", song.FeaturedArtists),
                         Isvault = song.FromTheVault,
-                        Lyrics = string.Join('\n',song.Lyrics.Select(l => l.Text)),
+                        Lyrics = string.Join('\n', song.Lyrics.Select(l => l.Text)),
                         Title = song.Title,
                         Tracknumber = song.TrackNumber
                     };
@@ -61,19 +64,45 @@ namespace TaylorsVersionApi.Controllers
         }
 
         [HttpGet("albuns")]
-        public async Task<IActionResult> Albums(string? lyrics, int? year ){
-            
+        public async Task<IActionResult> Albums(string? lyrics, int? year)
+        {
+
             var query = _context.Albums.AsQueryable();
 
-            if(lyrics is not null)
+            if (lyrics is not null)
                 query = query.Where(x => x.Songs.Any(s => s.Lyrics!.Contains(lyrics)));
-            
-            if(year.HasValue)
+
+            if (year.HasValue)
                 query = query.Where(x => x.Releaseyear == year.Value);
-        
+
             var album = await query.ToListAsync();
 
             return Ok(album);
         }
+
+        [HttpPost]
+        public IActionResult AddQuotes(QuoteBody quote)
+        {
+            var newQuote = new Quote
+            {
+                Quote1 = quote.Quote,
+                Songid = quote.Songid,
+
+            };
+
+            _context.Quotes.Add(newQuote);
+
+            _context.SaveChanges();
+
+            return Created("api/addquote", newQuote);
+        }
+    }
+
+    public class QuoteBody
+    {
+        public string Quote { get; set; } = null!;
+
+        public int? Songid { get; set; }
+
     }
 }

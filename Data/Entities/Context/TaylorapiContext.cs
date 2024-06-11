@@ -48,9 +48,6 @@ public partial class TaylorapiContext : DbContext
             entity.ToTable("quotes");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.FieldType)
-                .HasMaxLength(50)
-                .HasColumnName("field_type");
             entity.Property(e => e.Quote1).HasColumnName("quote");
             entity.Property(e => e.Songid).HasColumnName("songid");
 

@@ -10,8 +10,5 @@ public partial class Quote
     public string Quote1 { get; set; } = null!;
 
     public int? Songid { get; set; }
-
-    public string? FieldType { get; set; }
-
     public virtual Song? Song { get; set; }
 }
